@@ -64,4 +64,88 @@ router.put('/ordem_servicos/:id_ordem', async (req, res) => {
     }
 })
 
+router.patch('/ordem_servicos/:id_ordem', async(req, res)=> {
+const {id_ordem} = req.params;
+const {titulo, descricao, prioridade, status, data, id_usuario, id_departamento} = req.body
+
+    try {
+         //verificar se o ordem_servico existe
+        const verificarordem_servico = await BD.query(`SELECT * FROM ordem_servicos where id_ordem = $1`, [id_ordem]);
+        if(verificarordem_servico.rows.length === 0){
+            return res.status(404).json({message: 'ordem_servico nâo encontrado'})
+        }
+
+        //montar o update dinamicamente(apenas campos enviados)
+        const campos = [];
+        const valores = [];
+        let contador = 1;
+
+        if (titulo !== undefined) {
+            campos.push(`titulo = $${contador}`);
+            valores.push(titulo)
+            contador++
+        }
+        if (descricao !== undefined) {
+            campos.push(`descricao = $${contador}`);
+            valores.push(descricao)
+            contador++
+        }
+        if (prioridade !== undefined) {
+            campos.push(`prioridade = $${contador}`);
+            valores.push(prioridade)
+            contador++
+        }
+        if (status !== undefined) {
+            campos.push(`status = $${contador}`);
+            valores.push(status)
+            contador++
+        }
+        if (data !== undefined) {
+            campos.push(`data = $${contador}`);
+            valores.push(data)
+            contador++
+        }
+        if (id_usuario !== undefined) {
+            campos.push(`id_usuario = $${contador}`);
+            valores.push(id_usuario)
+            contador++
+        }
+        if (id_departamento !== undefined) {
+            campos.push(`id_departamento = $${contador}`);
+            valores.push(id_departamento)
+            contador++
+        }
+        //se nenhum campos foi enviado
+        if(campos.length === 0){
+            return res.status(400).json({message: "nenhum campo a atualizar"})
+        }
+
+
+        //adicionan id ao final de valores
+        valores.push(id_ordem)
+
+        //montando a query dinamicamente
+        const comando = `update ordem_servicos set ${campos.join(', ')} where id_ordem = $${contador}`
+        await BD.query(comando, valores)
+        return res.status(200).json('ordem_servico atualizado com sucesso')
+    } catch (error) {
+        console.error('erro autualizar ordem_servico', error.message)
+        return res.status(500).json({message: "erro interno no servidor" + error.message})
+    }
+
+})
+
+router.delete('/ordem_servicos/:id_ordem', async(req, res)=>{
+    const {id_ordem} = req.params
+    try {
+        //executa o comando de delete
+        const comando = `delete from ordem_servicos where id_ordem = $1`
+        await BD.query(comando, [id_ordem])
+        return res.status(200).json({message: 'ordem_servico removido com sucesso'})
+    } catch (error) {
+        console.error('erro ao deletar ordem_servico', error.message)
+        return res.status(500).json({message: "erro interno no servidor" + error.message})
+    }
+})
+    
 export default router

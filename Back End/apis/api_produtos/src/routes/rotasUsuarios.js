@@ -159,4 +159,42 @@ router.delete('/usuarios/:id_usuario', async(req, res) => {
     }
 })
 
+//Endpoint de Login
+router.post('/login', async(req, res) =>{
+    const {email, senha} = req.body;
+
+    //Validação de entrada
+    if(!email || !senha){
+        return res.status(400).json({message: 'Email e senha são obrigatórios'})
+    }
+    try {
+        //Buscar usuario pelo email
+        const comando = 'SELECT id_usuario, nome, email, senha FROM USUARIOS WHERE email = $1'
+        const resultado = await BD.query(comando, [email])
+
+        if(resultado.rows.length === 0) {
+            return res.status(401).json({message:"email nao encontrado"})
+        }
+
+        const usuario = resultado.rows[0]
+
+        //verific senha se sao iguais
+        if(usuario.senha !== senha){
+            return res.status(401).json({message:"senha nao encontrado"})
+        }
+        return res.status(200).json({
+            message: 'Login realizado com sucesso',
+            usuario: {
+                id_usuario: usuario.id_usuario, 
+                nome: usuario.nome,
+                email: usuario.email
+            }
+        })
+
+    } catch (error) {
+        console.error('Erro ao usuario', error.message);
+        return res.status(500).json({message: "Erro interno so servidor" + error.message})
+    }
+})
+
 export default router

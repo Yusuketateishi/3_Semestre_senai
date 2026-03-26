@@ -95,7 +95,68 @@ const documentacao = {
                         content:{"application/json": {example: "Usuario não encontrado"}}},
                     500: {description:"Erro no servidor"}
                 }
-            }
+            },
+            patch:{
+                tags:["Usuários"],
+                summary: "Atualizar parcialmente o usuário",
+                description:"atualiza apenas os campos enviados, não sendo necessarioenviar todos os campos",
+                parameters: [
+                    {
+                        name: "id_usuario",
+                        in: "path",
+                        required: true,
+                        description: "ID do usuario a ser atualizado",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                requestBody:{
+                    required: true,
+                    content:{
+                        "application/json":{
+                            schema: {$ref: '#/components/schemas/Atualizacao_Parcial_Usuario'},
+                            examples: {
+                                apenas_nome: {summary: "Atualizar apenas o nome", value: {nome: "Novo Nome"}},
+                                apenas_email: {summary: "Atualizar apenas o email", value: {email: "novo@email.com"}},
+                            }
+                        }
+                    }
+                },
+                responses:{
+                    200: {
+                        description:"Usuario atualizado com sucesso",
+                        content:{"application/json": {example: "Usuario atualizado"}}
+                    },
+                    400: {
+                        description: "Nenhum campo a ser atualizado"
+                    },
+                    404: {description:"Usuario noa encontrado",
+                        content:{"application/json": {example: "Usuario não encontrado"}}},
+                    500: {description:"Erro no servidor"}
+                }
+            },
+            delete:{
+                tags:["Usuários"],
+                summary: "Remover o usuário",
+                description:"Remover os usuarios",
+                parameters: [
+                    {
+                        name: "id_usuario",
+                        in: "path",
+                        required: true,
+                        description: "ID do usuario a ser removido",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                responses:{
+                    200: {
+                        description:"Usuario removido com sucesso",
+                        content:{"application/json": {example: "Usuario removido"}}
+                    },
+                    500: {description:"Erro no servidor"}
+                }
+            },
         },
         "/departamentos": {
             get: {
@@ -175,7 +236,68 @@ const documentacao = {
                         content:{"application/json": {example: "departamento não encontrado"}}},
                     500: {description:"Erro no servidor"}
                 }
-            }
+            },
+            patch:{
+                tags:["Departamentos"],
+                summary: "Atualizar parcialmente o departamento",
+                description:"atualiza apenas os campos enviados, não sendo necessario enviar todos os campos",
+                parameters: [
+                    {
+                        name: "id_departamento",
+                        in: "path",
+                        required: true,
+                        description: "ID do departamento a ser atualizado",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                requestBody:{
+                    required: true,
+                    content:{
+                        "application/json":{
+                            schema: {$ref: '#/components/schemas/Atualizacao_Parcial_Departamento'},
+                            examples: {
+                                apenas_nome: {summary: "Atualizar apenas o nome", value: {nome: "Novo Nome"}},
+                                apenas_descricao: {summary: "Atualizar apenas a descricao", value: {descricao: "Nova Descrição"}},
+                            }
+                        }
+                    }
+                },
+                responses:{
+                    200: {
+                        description:"Departamento atualizado com sucesso",
+                        content:{"application/json": {example: "Departamento atualizado"}}
+                    },
+                    400: {
+                        description: "Nenhum campo a ser atualizado"
+                    },
+                    404: {description:"Departamento noa encontrado",
+                        content:{"application/json": {example: "Departamento não encontrado"}}},
+                    500: {description:"Erro no servidor"}
+                }
+            },
+            delete:{
+                tags:["Departamentos"],
+                summary: "Remover o departamento",
+                description:"Remover os departamento",
+                parameters: [
+                    {
+                        name: "id_departamento",
+                        in: "path",
+                        required: true,
+                        description: "ID do departamento a ser removido",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                responses:{
+                    200: {
+                        description:"Departamento removido com sucesso",
+                        content:{"application/json": {example: "Departamento removido"}}
+                    },
+                    500: {description:"Erro no servidor"}
+                }
+            },
         },
         "/ordem_servicos": {
             get: {
@@ -254,7 +376,73 @@ const documentacao = {
                         content:{"application/json": {example: "ordem_servicos não encontrado"}}},
                     500: {description:"Erro no servidor"}
                 }
-            }
+            },
+            patch:{
+                tags:["OrdemServico"],
+                summary: "Atualizar parcialmente a ordem",
+                description:"atualiza apenas os campos enviados, não sendo necessario enviar todos os campos",
+                parameters: [
+                    {
+                        name: "id_ordem",
+                        in: "path",
+                        required: true,
+                        description: "ID da ordem a ser atualizado",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                requestBody:{
+                    required: true,
+                    content:{
+                        "application/json":{
+                            schema: {$ref: '#/components/schemas/Atualizacao_Parcial_ordem_servico'},
+                            examples: {
+                                apenas_titulo: {summary: "Atualizar apenas o titulo", value: {titulo: "Novo Nome"}},
+                                apenas_descricao: {summary: "Atualizar apenas a descricao", value: {descricao: "Nova Descrição"}},
+                                apenas_prioridade: {summary: "Atualizar apenas a prioridade", value: {prioridade: "Nova prioridade"}},
+                                apenas_status: {summary: "Atualizar apenas o status", value: {status: "Novo status"}},
+                                apenas_data: {summary: "Atualizar apenas a data", value: {data: "Nova Data"}},
+                                apenas_id_usuario: {summary: "Atualizar apenas o id_usuario", value: {id_usuario: "Novo id_usuario"}},
+                                apenas_id_departamento: {summary: "Atualizar apenas o id_departamento", value: {id_usuario: "Novo id_departamento"}},
+                            }
+                        }
+                    }
+                },
+                responses:{
+                    200: {
+                        description:"Ordem atualizado com sucesso",
+                        content:{"application/json": {example: "Ordem atualizado"}}
+                    },
+                    400: {
+                        description: "Nenhum campo a ser atualizado"
+                    },
+                    404: {description:"Ordem noa encontrado",
+                        content:{"application/json": {example: "Ordem não encontrado"}}},
+                    500: {description:"Erro no servidor"}
+                }
+            },
+            delete:{
+                tags:["OrdemServico"],
+                summary: "Remover a ordem",
+                description:"Remover as ordem",
+                parameters: [
+                    {
+                        name: "id_ordem",
+                        in: "path",
+                        required: true,
+                        description: "ID da ordem a ser removido",
+                        schema:{type: "integer"},
+                        example: 1
+                    }
+                ],
+                responses:{
+                    200: {
+                        description:"Ordem removido com sucesso",
+                        content:{"application/json": {example: "Ordem removido"}}
+                    },
+                    500: {description:"Erro no servidor"}
+                }
+            },
         },
     },
     components: {
@@ -284,6 +472,14 @@ const documentacao = {
                     senha: { type: "string", example: "senha123" }
                 }
             },
+            Atualizacao_Parcial_Usuario: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "ricardo" },
+                    email: { type: "string", example: 'ricardo@email.com' },
+                    senha: { type: "string", example: "senha123" }
+                }
+            },
             Lista_Departamentos: {
                 type: "object",
                 properties: {
@@ -305,6 +501,13 @@ const documentacao = {
                 properties: {
                     nome: { type: "string", example: "sala 3" },
                     descricao: { type: "string", example: "entre e vire a esquerda" }
+                }
+            },
+            Atualizacao_Parcial_Departamento: {
+                type: "object",
+                properties: {
+                    nome: { type: "string", example: "ricardo" },
+                    descricao: { type: "string", example: 'descrição' }
                 }
             },
             Lista_Ordem: {
@@ -345,6 +548,18 @@ const documentacao = {
                     data: { type: "date", example: "2026-02-26"},
                     id_usuario: {type: "integer", example: 1},
                     id_departamento: {type: "integer", example: 1}
+                }
+            },
+            Atualizacao_Parcial_ordem_servicos: {
+                type: "object",
+                properties: {
+                    titulo: { type: "string", example: "titulo" },
+                    descricao: { type: "string", example: 'descrição' },
+                    prioridade: { type: "string", example: 'prioridade' },
+                    status: { type: "string", example: 'status' },
+                    data: { type: "string", example: 'data' },
+                    id_usuario: { type: "string", example: 'id_usuario' },
+                    id_departamento: { type: "string", example: 'id_departamento' }
                 }
             }
         }

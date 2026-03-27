@@ -17,6 +17,7 @@ import Aula14 from "../components/Aula14";
 import Cabecalho from "../components/Cabecalho";
 
 import {estilos} from '../style/Estilos'
+import Aula15 from '../components/Aula15';
 
 const Principal = () => {
   return (
@@ -40,6 +41,7 @@ const Principal = () => {
           <Aula12 />
           <Aula13 />
           <Aula14 />
+          <Aula15 />
         </div>
       </main>
     </div>

@@ -1,5 +1,6 @@
 import { estilos } from "../style/Estilos"
 import { useEffect, useState } from "react"
+import { enderecoServidor } from "../utils"
 import Aula13_Usuarios from "./Aula13_Usuarios"
 
 const Aula13_cadastroUsuario = () => {
@@ -29,11 +30,11 @@ const Aula13_cadastroUsuario = () => {
         }
         
         try{
-            let endpoint ="http://localhost:3001/usuarios"
+            let endpoint =`${enderecoServidor}/usuarios`
             let metodo = 'POST'
 
             if (editando == true) {
-                endpoint = `http://localhost:3001/usuarios/${id}`
+                endpoint = `${enderecoServidor}/usuarios/${id}`
                 metodo = 'PUT'
             }
 
@@ -72,7 +73,7 @@ const Aula13_cadastroUsuario = () => {
 
     async function buscarDados() {
         try {
-            const resposta = await fetch ('http://localhost:3001/usuarios')
+            const resposta = await fetch (`${enderecoServidor}/usuarios`)
             const dados = await resposta.json()
             setListaUsuarios(dados)
             
@@ -85,7 +86,7 @@ const Aula13_cadastroUsuario = () => {
     async  function botaoExcluir(id_usuario) {
 
         try{
-            const resposta = await fetch(`http://localhost:3001/usuarios/${id_usuario}`, {
+            const resposta = await fetch(`${enderecoServidor}/usuarios/${id_usuario}`, {
                 method: 'DELETE',
             })
 

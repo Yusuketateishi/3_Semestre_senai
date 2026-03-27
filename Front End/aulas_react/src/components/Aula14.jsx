@@ -27,6 +27,9 @@ const Aula14 = () => {
             <Link to='/inicio'> Página Inicial</Link>
             <br />
             <hr />
+            <h3>Rota Filmes</h3>
+            <button onClick={() => navigate('/filmes/1')}>Filme1</button>
+            <button onClick={() => navigate('/filmes/2')}>Filme2</button>
             
         </div>
     )

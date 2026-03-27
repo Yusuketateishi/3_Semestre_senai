@@ -1,5 +1,6 @@
 import { estilos } from "../style/Estilos"
 import { useEffect, useState } from "react"
+import { enderecoServidor } from "../utils"
 import Aula13_Produtos from "./Aula13_Produtos"
 
 const Aula13_cadastroProduto = () => {
@@ -58,11 +59,11 @@ const Aula13_cadastroProduto = () => {
         
         try{
             //let endpoint ="http://10.130.42.68:3001/produtos"
-            let endpoint ="http://localhost:3001/produtos"
+            let endpoint =`${enderecoServidor}/produtos`
             let metodo = 'POST'
 
             if (editando == true) {
-                endpoint = `http://localhost:3001/produtos/${id}`
+                endpoint = `${enderecoServidor}/produtos/${id}`
                 metodo = 'PUT'
             }
 
@@ -89,7 +90,7 @@ const Aula13_cadastroProduto = () => {
   async  function botaoExcluir(id_produto) {
 
         try{
-            const resposta = await fetch(`http://localhost:3001/produtos/${id_produto}`, {
+            const resposta = await fetch(`${enderecoServidor}/produtos/${id_produto}`, {
                 method: 'DELETE',
             })
 
@@ -124,7 +125,7 @@ const Aula13_cadastroProduto = () => {
 
     async function buscarDados() {
         try {
-            const resposta = await fetch ('http://localhost:3001/produtos')
+            const resposta = await fetch (`${enderecoServidor}/produtos`)
             const dados = await resposta.json()
             setListaProdutos(dados)
             

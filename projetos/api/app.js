@@ -2,6 +2,9 @@ import express from 'express';
 //Importando o Banco de Dados
 import {BD, testarConexao} from './db.js';
 import rotasUsuarios from './src/routes/rotasUsuarios.js'
+import rotasTransacoes from './src/routes/rotasTransacoes.js'
+import rotasCategorias from './src/routes/rotasCategorias.js'
+import rotasSubcategorias from './src/routes/rotasSubcategorias.js'
 
 import swaggerUI from 'swagger-ui-express';
 import documentacao from './config/swagger.js';
@@ -20,6 +23,9 @@ app.get('/', async(req, res)=> {
 
 //Utilizando rotas
 app.use(rotasUsuarios);
+app.use(rotasCategorias);
+app.use(rotasSubcategorias);
+app.use(rotasTransacoes);
 
 
 const porta = 3001;

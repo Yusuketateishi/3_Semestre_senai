@@ -22,6 +22,9 @@ const documentacao = {
       get: {
         tags: ["Usuários"],
         summary: "Listar usuários",
+        security: [
+          {bearerAuth: []}
+        ],
         responses: {
           200: {
             description: "Dados obtidos com sucesso",
@@ -59,6 +62,9 @@ const documentacao = {
       put: {
         tags: ["Usuários"],
         summary: "Atualizar usuário completo",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_usuario",
@@ -84,6 +90,9 @@ const documentacao = {
       delete: {
         tags: ["Usuários"],
         summary: "Remover usuário",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_usuario",
@@ -129,6 +138,9 @@ const documentacao = {
       get: {
         tags: ["Categorias"],
         summary: "Listar categorias",
+        security: [
+          {bearerAuth: []}
+        ],
         responses: {
           200: {
             description: "Dados obtidos com sucesso",
@@ -146,6 +158,9 @@ const documentacao = {
       post: {
         tags: ["Categorias"],
         summary: "Cadastrar nova categoria",
+        security: [
+          {bearerAuth: []}
+        ],
         requestBody: {
           required: true,
           content: {
@@ -165,6 +180,9 @@ const documentacao = {
       put: {
         tags: ["Categorias"],
         summary: "Atualizar a categoria completo",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_categoria",
@@ -189,6 +207,9 @@ const documentacao = {
       delete: {
         tags: ["Categorias"],
         summary: "Remover categoria",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_categoria",
@@ -206,6 +227,9 @@ const documentacao = {
       get: {
         tags: ["Subcategorias"],
         summary: "Listar subcategorias",
+        security: [
+          {bearerAuth: []}
+        ],
         responses: {
           200: {
             description: "Dados obtidos com sucesso",
@@ -223,6 +247,9 @@ const documentacao = {
       post: {
         tags: ["Subcategorias"],
         summary: "Cadastrar nova subcategoria",
+        security: [
+          {bearerAuth: []}
+        ],
         requestBody: {
           required: true,
           content: {
@@ -242,6 +269,9 @@ const documentacao = {
       put: {
         tags: ["Subcategorias"],
         summary: "Atualizar a subcategoria completo",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_subcategoria",
@@ -266,6 +296,9 @@ const documentacao = {
       delete: {
         tags: ["Subcategorias"],
         summary: "Remover subcategoria",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_subcategoria",
@@ -283,6 +316,9 @@ const documentacao = {
       get: {
         tags: ["Transacoes"],
         summary: "Listar todos as transacoes",
+        security: [
+          {bearerAuth: []}
+        ],
         responses: {
           200: {
             description: "Dados obtidos com sucesso",
@@ -300,6 +336,9 @@ const documentacao = {
       post: {
         tags: ["Transacoes"],
         summary: "Cadastrar uma nova transacao",
+        security: [
+          {bearerAuth: []}
+        ],
         requestBody: {
           required: true,
           content: {
@@ -319,6 +358,9 @@ const documentacao = {
       put: {
         tags: ["Transacoes"],
         summary: "Atualizar a transacoes completo",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_transacoes",
@@ -343,6 +385,9 @@ const documentacao = {
       delete: {
         tags: ["Transacoes"],
         summary: "Remover transacoes",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_transacoes",
@@ -360,6 +405,9 @@ const documentacao = {
       get: {
         tags: ["Transacoes"],
         summary: "Listar todos as transacoes",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: 'tipo',
@@ -388,6 +436,9 @@ const documentacao = {
       get: {
         tags: ["Transacoes"],
         summary: "Listar transacoes",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_categoria",
@@ -416,6 +467,9 @@ const documentacao = {
       get: {
         tags: ["Transacoes"],
         summary: "Listar transacoes",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: "id_subcategoria",
@@ -444,6 +498,9 @@ const documentacao = {
       get: {
         tags: ["Transacoes"],
         summary: "Listar transacoes por periodo",
+        security: [
+          {bearerAuth: []}
+        ],
         parameters: [
           {
             name: 'Inicio',
@@ -478,6 +535,14 @@ const documentacao = {
   },
 
   components: {
+    securitySchemes:{
+      bearerAuth:{
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description:'Insira o Token obtido no login'
+      }
+    },
     schemas: {
       Lista_Usuarios: {
         type: "object",
@@ -525,6 +590,11 @@ const documentacao = {
           message: {
             type: "string",
             example: "Login realizado com sucesso"
+          },
+          token: {
+            type:'string',
+            description: 'Token JWT gerado',
+            example: 'eyjklakgrisikuyy...'
           },
           usuario: {
             type: "object",

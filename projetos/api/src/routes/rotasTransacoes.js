@@ -240,4 +240,23 @@ router.get('/transacoes/periodo',autenticarToken, async (req, res) => {
     }
 })
 
+//Rota soma de Transações
+router.get('/transacoes/total',autenticarToken, async(req, res) => {
+    const {tipo} = req.query; //Pegar o tipo E ou S
+    try {
+        const comando =`
+        SELECT SUM(valor) as total
+        FROM transacoes
+        WHERE tipo = $1
+        `
+        const resultado = await BD.query(comando,[tipo.toUpperCase()])
+        return res.status(200).json({
+            tipo: tipo.toLocaleUpperCase(),
+            total: resultado.rows[0].total || 0
+        })
+    } catch(error){
+        return res.status(500).json({error: "Erro ao calcular o total"})
+    }
+})
+
 export default router
